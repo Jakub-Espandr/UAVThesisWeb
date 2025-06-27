@@ -1,0 +1,26 @@
+{
+  "name": "UAV Klasifikace - Interaktivní vizualizace",
+  "short_name": "UAV Klasifikace",
+  "description": "Interaktivní vizualizace výsledků klasifikace UAV dat",
+  "icons": [
+    {
+      "src": "/icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#667eea",
+  "background_color": "#667eea",
+  "display": "standalone",
+  "start_url": "/"
+} 

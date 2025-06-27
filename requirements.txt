@@ -1,0 +1,11 @@
+express
+express-session
+ejs
+serve-favicon
+dotenv
+sharp
+morgan
+helmet
+compression
+body-parser
+cookie-parser 
