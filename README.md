@@ -143,7 +143,7 @@ Každá studie obsahuje:
 
 This project is licensed under the **Non-Commercial Public License (NCPL v1.0)**  
 © 2025 Jakub Ešpandr - Born4Flight, FlyCamCzech  
-See the [LICENSE](https://github.com/Jakub-Espandr/FCCImageProcessor/raw/main/LICENSE) file for full terms.
+See the [LICENSE](https://github.com/Jakub-Espandr/UAVThesisWeb/raw/main/LICENSE) file for full terms.
 
 ---
 
@@ -300,7 +300,7 @@ Each study includes:
 
 This project is licensed under the **Non-Commercial Public License (NCPL v1.0)**  
 © 2025 Jakub Ešpandr - Born4Flight, FlyCamCzech  
-See the [LICENSE](https://github.com/Jakub-Espandr/FCCImageProcessor/raw/main/LICENSE) file for full terms.
+See the [LICENSE](https://github.com/Jakub-Espandr/UAVThesisWeb/raw/main/LICENSE) file for full terms.
 
 ---
 
