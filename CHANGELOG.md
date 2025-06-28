@@ -1,6 +1,33 @@
 # 📝 Changelog
 
 
+## [1.0.1] - 2025-06-28
+
+### Odebráno
+- Odstraněno tlačítko "Porovnat" a související funkce z uživatelského rozhraní i JavaScriptu.
+
+### Opraveno
+- Opraveno zobrazování bublin (info a help) na mobilu po zavření overlay
+- Opraveno vertikální centrování obrázků (metody a výřez) na mobilu pomocí flexbox
+- Odstraněny transition efekty při přepínání mezi výřezem a metodou pro okamžité přepínání
+
+### Optimalizováno
+- **CSS konsolidace**: Sloučeny duplicitní styly pro obrázky a tlačítka do společných selektorů
+- **CSS modularizace**: Přesunut inline CSS do samostatného souboru `public/css/style.css`
+- **Preload optimalizace**: Přidány preload a prefetch tagy pro fonty, favicony a hlavní obrázky studií
+- **DNS optimalizace**: Přidány DNS prefetch a preconnect pro externí zdroje
+- **JavaScript modularizace**: Přesunut inline JavaScript do samostatného modulu `public/js/app.js`
+- **Funkční rozdělení**: Rozděleny velké funkce na menší, znovupoužitelné části
+- **Globální expozice**: Funkce vystaveny globálně pro podporu existujících onclick handlerů
+
+### Vylepšeno
+- **Mobilní UX**: Lepší pozicování a velikosti obrázků na mobilních zařízeních
+- **Konzistence**: Sjednoceny styly mezi normálními obrázky a porovnávacím režimem
+- **Výkon**: Odstraněny zbytečné animace a transition efekty pro rychlejší odezvu
+- **Kódová struktura**: Lepší organizace CSS a JavaScript kódu pro snadnější údržbu
+
+---
+
 ## [1.0.0] - 2025-06-27
 
 ## 🎯 Základní funkcionalita
