@@ -40,6 +40,7 @@ export function hideOverlay() {
 
 // === State ===
 const data = JSON.parse(document.getElementById('caseStudiesData').textContent);
+console.log('Data loaded, studies count:', data.length);
 let currentStudy = null;
 let currentMethodIndex = 0;
 let currentImageIndex = 0;
@@ -50,6 +51,23 @@ let isCompareMode = false;
 // === Overlay logic ===
 export function showImageOverlay(studyName, methodIndex, imageIndex) {
   currentStudy = data.find(st => st.name === studyName);
+  
+  if (!currentStudy) {
+    console.error('Study not found:', studyName);
+    return;
+  }
+  
+  if (!currentStudy.methods || !currentStudy.methods[methodIndex]) {
+    console.error('Method not found:', methodIndex, 'in study:', currentStudy);
+    return;
+  }
+  
+  const method = currentStudy.methods[methodIndex];
+  if (!method.images || !method.images[imageIndex]) {
+    console.error('Image not found:', imageIndex, 'in method:', method);
+    return;
+  }
+  
   currentMethodIndex = methodIndex;
   currentImageIndex = imageIndex;
   isOverviewMode = false;
@@ -92,7 +110,7 @@ export function updateImageOverlay() {
   
   if (isOverviewMode) {
     const image = currentStudy.overview[currentImageIndex];
-    overlayImg.src = `data/${currentStudy.name}/${image}`;
+    overlayImg.src = `/data/${currentStudy.name}/${image}`;
     document.getElementById('methodIndicator').textContent = image.replace('.webp', '');
     imageOverlay.classList.remove('compare-mode');
     currentOverlayImages = [overlayImg.src];
@@ -105,10 +123,10 @@ export function updateImageOverlay() {
       overlayImg.src = `/data/${currentStudy.name}/vysec.webp`;
       overlayImg.alt = 'Výřez';
       imageOverlay.classList.add('compare-mode');
-      currentOverlayImages = [image.fullPath, `/data/${currentStudy.name}/vysec.webp`];
+      currentOverlayImages = [`/${image.fullPath}`, `/data/${currentStudy.name}/vysec.webp`];
     } else {
       // Normální režim - zobrazit jeden obrázek
-      overlayImg.src = image.fullPath;
+      overlayImg.src = `/${image.fullPath}`;
       overlayImg.alt = '';
       imageOverlay.classList.remove('compare-mode');
       currentOverlayImages = [overlayImg.src];

@@ -1,6 +1,20 @@
 # 📝 Changelog
 
 
+## [1.0.2] - 2025-07-03
+
+### Opraveno
+- **Image overlay problém**: Opraveno načítání obrázků při zobrazení jednotlivých studií
+  - Změna relativních cest na absolutní cesty (přidání `/` na začátek cest)
+  - Oprava funkčnosti `showImageOverlay()` pro všechny URL kontexty
+  - Obrázky se nyní správně načítají jak na hlavní stránce (`/`) tak na jednotlivých studiích (`/study/1`, `/study/2`, atd.)
+- **CSS metodový indikátor**: Odstraněn `display: none` z `.method-indicator` pro správné zobrazení
+
+### Přidáno
+- **Verze v footeru**: Přidána informace o verzi (v1.0.2) do footeru aplikace
+
+---
+
 ## [1.0.1] - 2025-06-28
 
 ### Odebráno
