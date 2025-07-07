@@ -100,16 +100,13 @@ function loadCaseStudies(baseDir) {
       .filter(d => !d.name.endsWith('.fld') && d.name !== 'appendix')
       .map(method => {
         const methodPath = path.join(studyPath, method.name);
-        const allFiles = fs.readdirSync(methodPath);
-        // Preferuj webp, pokud existuje, jinak jpg/jpeg
+        const allFiles = fs.readdirSync(methodPath, { withFileTypes: true });
+        // Pouze platné obrázky (webp) a pouze soubory
         const images = allFiles
-          .filter(f =>
-            (f.toLowerCase().endsWith(".webp") || f.toLowerCase().endsWith(".jpg") || f.toLowerCase().endsWith(".jpeg") || f.toLowerCase().endsWith(".png")) &&
-            !f.toLowerCase().includes('_thumb')
-          )
-          .map(file => ({
-            filename: file,
-            fullPath: `data/${study.name}/${method.name}/${file}`
+          .filter(f => f.isFile() && f.name.toLowerCase().endsWith('.webp') && !f.name.toLowerCase().includes('_thumb'))
+          .map(f => ({
+            filename: f.name,
+            fullPath: `data/${study.name}/${method.name}/${f.name}`
           }));
         return {
           name: method.name,

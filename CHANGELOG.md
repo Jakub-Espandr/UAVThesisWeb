@@ -1,6 +1,25 @@
 # 📝 Changelog
 
 
+## [1.0.3] - 2025-07-07
+
+### Opraveno
+- **Zabránění zamrznutí UI při rychlém přepínání:** Kompletně přepracována logika načítání obrázků a přepínání mezi spektrálními indexy, metodami a náhledy. Nově je zajištěno, že se nikdy nespustí více načítání obrázků současně a uživatelské rozhraní zůstává vždy responzivní.
+- **Ošetření race conditions a správná správa stavu:** Přidána blokace dalších akcí během načítání obrázku pomocí událostí `onload`/`onerror` a paměťového Image objektu. Zajištěno, že se zpracuje pouze poslední požadavek uživatele.
+- **Timeout pro načítání obrázků:** Pokud se obrázek nenačte do 5 sekund, UI se automaticky odblokuje a uživatel může pokračovat.
+- **Oprava generování neplatných cest k obrázkům:** Backend nyní filtruje pouze platné obrázky s příponou `.webp` a v šabloně EJS jsou všechny cesty správně escapovány.
+- **Ošetření chybného stavu `currentStudy`:** Přidán fallback mechanismus, který vždy obnoví platnou studii z globálních dat, pokud dojde k chybě nebo neplatnému indexu.
+- **Oprava indexů a hranic při navigaci:** Zajištěno, že při přepínání obrázků nikdy nedojde k přetečení nebo podtečení indexů.
+
+### Vylepšení
+- **Podrobné logování:** Přidány detailní logy pro sledování změn stavu a událostí načítání obrázků.
+- **Zvýšení limitu cache obrázků v JS:** Limit pro počet cachovaných obrázků zvýšen z 50 na 200 pro plynulejší uživatelský zážitek.
+- **Odstranění preload warningů:** Odstraněny zbytečné preloady pro favicon a ikony, které způsobovaly varování v konzoli.
+- **Vyčištění dat a odstranění neplatných souborů:** Odstraněny neplatné nebo prázdné soubory z adresářů s obrázky.
+- **Vylepšený nadpis případové studie nad grafy:** Název případové studie je nyní nad grafy vždy dobře viditelný – na desktopu větší, tučnější a vycentrovaný, na mobilu decentní. Odstraněn zbytečný rámeček/indikátor v overlay s grafy.
+
+---
+
 ## [1.0.2] - 2025-07-03
 
 ### Opraveno
@@ -9,9 +28,6 @@
   - Oprava funkčnosti `showImageOverlay()` pro všechny URL kontexty
   - Obrázky se nyní správně načítají jak na hlavní stránce (`/`) tak na jednotlivých studiích (`/study/1`, `/study/2`, atd.)
 - **CSS metodový indikátor**: Odstraněn `display: none` z `.method-indicator` pro správné zobrazení
-
-### Přidáno
-- **Verze v footeru**: Přidána informace o verzi (v1.0.2) do footeru aplikace
 
 ---
 
