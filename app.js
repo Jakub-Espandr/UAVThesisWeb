@@ -92,12 +92,23 @@ function loadCaseStudies(baseDir) {
         }));
     }
 
+    // Najdi indexy
+    const indicesPath = path.join(studyPath, 'indices');
+    let indices = [];
+    
+    if (fs.existsSync(indicesPath)) {
+      const indicesFiles = fs.readdirSync(indicesPath);
+      indices = indicesFiles
+        .filter(f => f.match(/\.(jpg|jpeg|png|webp)$/i))
+        .sort(); // Seřadit abecedně
+    }
+
     // Najdi metody klasifikace
     const allDirs = fs.readdirSync(studyPath, { withFileTypes: true })
       .filter(d => d.isDirectory());
     
     const methods = allDirs
-      .filter(d => !d.name.endsWith('.fld') && d.name !== 'appendix')
+      .filter(d => !d.name.endsWith('.fld') && d.name !== 'appendix' && d.name !== 'indices')
       .map(method => {
         const methodPath = path.join(studyPath, method.name);
         const allFiles = fs.readdirSync(methodPath, { withFileTypes: true });
@@ -121,6 +132,7 @@ function loadCaseStudies(baseDir) {
       title,
       overview,
       tables,
+      indices,
       methods
     });
   }

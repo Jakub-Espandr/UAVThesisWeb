@@ -1,5 +1,19 @@
 # 📝 Changelog
 
+## [1.1.0] - 2025-07-08
+
+### Nové
+- **Tlačítko pro zobrazení indexů:** Přidáno nové tlačítko "Zobrazit indexy" pro každou případovou studii, které otevírá samostatný overlay pro porovnání spektrálních indexů a RGB snímku.
+
+### Vylepšeno
+- **Sticky footer:** Footer je nyní vždy viditelný (fixed) na spodní části obrazovky na všech zařízeních.
+- **Glassmorphism efekt:** Footer má průhledné pozadí s rozmazáním (glassmorphism), které dynamicky ladí s pozadím stránky.
+- **Lepší UX na mobilech:** Na mobilních zařízeních je větší mezera pod obsahem (`padding-bottom`), aby footer nepřekrýval tlačítka nebo jiné prvky.
+- **Větší a čitelnější text ve footeru:** Text ve footeru je větší a černý pro lepší čitelnost na světlém i tmavém pozadí.
+- **Odstranění inline stylů:** Všechny styly footeru jsou nyní v CSS, což zajišťuje lepší správu a konzistenci vzhledu.
+- **Celkové vylepšení responzivity a moderního vzhledu:** Footer je nyní plně responzivní a lépe zapadá do celkového designu aplikace.
+
+---
 
 ## [1.0.3] - 2025-07-07
 

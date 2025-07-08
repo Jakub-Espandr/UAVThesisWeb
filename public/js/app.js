@@ -63,6 +63,7 @@ export function cleanupMemory() {
   currentMethodIndex = 0;
   currentImageIndex = 0;
   currentTableIndex = 0;
+  currentIndexIndex = 0;
   isOverviewMode = false;
   isCompareMode = false;
   
@@ -103,8 +104,15 @@ let currentStudy = null;
 let currentMethodIndex = 0;
 let currentImageIndex = 0;
 let currentTableIndex = 0;
+let currentIndexIndex = 0;
 let isOverviewMode = false;
 let isCompareMode = false;
+let isIndicesMode = false;
+
+// === Indices overlay variables ===
+let indicesCurrentStudy = null;
+let indicesCurrentIndex = 0;
+let isIndicesRGBMode = false;
 
 // === Overlay logic ===
 export function showImageOverlay(studyName, methodIndex, imageIndex) {
@@ -119,6 +127,7 @@ export function showImageOverlay(studyName, methodIndex, imageIndex) {
   isOverviewMode = false;
   isCompareMode = false;
   updateImageOverlay();
+  updateNavButtonLabels();
   document.getElementById('imageOverlay').style.display = 'block';
   if (window.innerWidth <= 768) hideBubbles();
 }
@@ -131,6 +140,7 @@ export function toggleOverviewImages(studyName) {
   isOverviewMode = true;
   isCompareMode = false;
   updateImageOverlay();
+  updateNavButtonLabels();
   document.getElementById('imageOverlay').style.display = 'block';
   if (window.innerWidth <= 768) hideBubbles();
 }
@@ -214,6 +224,7 @@ export function updateImageOverlay() {
           isImageLoading = false;
           console.log('Image loaded:', newSrc);
           updateCompareButtonText();
+          updateNavButtonLabels();
         }
         console.log('updateImageOverlay end', {isImageLoading});
       };
@@ -250,6 +261,50 @@ export function updateCompareButtonText() {
     }
   } catch (error) {
     console.error('Error in updateCompareButtonText:', error);
+  }
+}
+
+export function updateNavButtonLabels() {
+  try {
+    const navButtons = document.querySelectorAll('.nav-button');
+    navButtons.forEach(button => {
+      const label = button.querySelector('.nav-button-label');
+      if (label) {
+        if (isIndicesMode) {
+          if (button.onclick.toString().includes('navigateImage(-1)')) {
+            label.textContent = 'Předchozí index';
+          } else if (button.onclick.toString().includes('navigateImage(1)')) {
+            label.textContent = 'Další index';
+          } else if (button.onclick.toString().includes('navigateMethod(-1)')) {
+            label.textContent = 'Předchozí metoda';
+          } else if (button.onclick.toString().includes('navigateMethod(1)')) {
+            label.textContent = 'Další metoda';
+          }
+        } else if (isOverviewMode) {
+          if (button.onclick.toString().includes('navigateImage(-1)')) {
+            label.textContent = 'Předchozí obrázek';
+          } else if (button.onclick.toString().includes('navigateImage(1)')) {
+            label.textContent = 'Další obrázek';
+          } else if (button.onclick.toString().includes('navigateMethod(-1)')) {
+            label.textContent = 'Předchozí metoda';
+          } else if (button.onclick.toString().includes('navigateMethod(1)')) {
+            label.textContent = 'Další metoda';
+          }
+        } else {
+          if (button.onclick.toString().includes('navigateImage(-1)')) {
+            label.textContent = 'Předchozí obrázek';
+          } else if (button.onclick.toString().includes('navigateImage(1)')) {
+            label.textContent = 'Další obrázek';
+          } else if (button.onclick.toString().includes('navigateMethod(-1)')) {
+            label.textContent = 'Předchozí metoda';
+          } else if (button.onclick.toString().includes('navigateMethod(1)')) {
+            label.textContent = 'Další metoda';
+          }
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error in updateNavButtonLabels:', error);
   }
 }
 
@@ -342,6 +397,78 @@ export function toggleTableGraph(imgElement, baseName, studyName) {
 export function hideTablesOverlay() {
   document.getElementById('tablesOverlay').style.display = 'none';
   showBubbles();
+}
+
+export function showIndicesOverlay(studyName) {
+  const foundStudy = data.find(st => st.name === studyName);
+  if (!foundStudy) return;
+  if (!foundStudy.indices || !foundStudy.indices.length) return;
+  
+  indicesCurrentStudy = foundStudy;
+  indicesCurrentIndex = 0;
+  isIndicesRGBMode = false;
+  updateIndicesOverlay();
+  updateIndicesRGBButtonText();
+  document.getElementById('indicesOverlay').style.display = 'block';
+  if (window.innerWidth <= 768) hideBubbles();
+}
+
+export function hideIndicesOverlay() {
+  document.getElementById('indicesOverlay').style.display = 'none';
+  indicesCurrentStudy = null;
+  indicesCurrentIndex = 0;
+  isIndicesRGBMode = false;
+  showBubbles();
+}
+
+export function navigateIndices(direction) {
+  if (!indicesCurrentStudy || !indicesCurrentStudy.indices.length) return;
+  indicesCurrentIndex = (indicesCurrentIndex + direction + indicesCurrentStudy.indices.length) % indicesCurrentStudy.indices.length;
+  isIndicesRGBMode = false; // Reset RGB mode when navigating
+  updateIndicesOverlay();
+  updateIndicesRGBButtonText();
+}
+
+function updateIndicesOverlay() {
+  if (!indicesCurrentStudy) return;
+  const img = document.getElementById('indicesOverlayImg');
+  const indicator = document.getElementById('indicesIndicator');
+  const indicesOverlay = document.getElementById('indicesOverlay');
+  
+  if (isIndicesRGBMode) {
+    img.src = `/data/${indicesCurrentStudy.name}/indices/rgb.webp`;
+    indicator.textContent = 'RGB';
+    indicesOverlay.classList.add('compare-mode');
+  } else {
+    const filename = indicesCurrentStudy.indices[indicesCurrentIndex];
+    img.src = `/data/${indicesCurrentStudy.name}/indices/${filename}`;
+    indicator.textContent = filename.replace('.webp', '');
+    indicesOverlay.classList.remove('compare-mode');
+  }
+}
+
+export function toggleIndicesRGB() {
+  isIndicesRGBMode = !isIndicesRGBMode;
+  updateIndicesOverlay();
+  updateIndicesRGBButtonText();
+}
+
+export function updateIndicesRGBButtonText() {
+  try {
+    const compareButton = document.querySelector('#indicesOverlay .compare-button');
+    if (compareButton) {
+      const label = compareButton.querySelector('.nav-button-label');
+      if (label) {
+        if (isIndicesRGBMode) {
+          label.textContent = 'Zobrazit index';
+        } else {
+          label.textContent = 'Zobrazit RGB';
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error in updateIndicesRGBButtonText:', error);
+  }
 }
 
 export function showTablesOverlay(studyName) {
@@ -562,6 +689,12 @@ window.hideTablesOverlay = hideTablesOverlay;
 window.toggleCompareWithCrop = toggleCompareWithCrop;
 window.updateCompareButtonText = updateCompareButtonText;
 window.showTablesOverlay = showTablesOverlay;
+window.showIndicesOverlay = showIndicesOverlay;
+window.hideIndicesOverlay = hideIndicesOverlay;
+window.navigateIndices = navigateIndices;
+window.toggleIndicesRGB = toggleIndicesRGB;
+window.updateIndicesRGBButtonText = updateIndicesRGBButtonText;
+window.updateNavButtonLabels = updateNavButtonLabels;
 
 export function toggleMainImages(studyName) {
   const study = data.find(st => st.name === studyName);

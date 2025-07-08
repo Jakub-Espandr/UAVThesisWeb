@@ -96,6 +96,7 @@
         <li><strong>Klikněte na obrázek metody</strong> pro zobrazení v detailu a porovnání s výřezem.</li>
         <li><strong>Šipky v overlay</strong> slouží k navigaci mezi metodami a obrázky.</li>
         <li><strong>Tlačítko "Zobrazit grafy"</strong> zobrazí metriky a grafy klasifikace.</li>
+        <li><strong>Tlačítko "Zobrazit indexy"</strong> zobrazí spektrální indexy s možností navigace.</li>
       </ul>
       <div style="font-size:0.9em;color:#888;margin-top:0.5em;">Tip: Pro nejlepší zážitek používejte moderní prohlížeč a rychlé připojení.</div>
     </div>
@@ -137,6 +138,9 @@
       <% } %>
       <% if (cs.tables && cs.tables.length > 0) { %>
         <button onclick="showTablesOverlay('<%= cs.name %>')">📊 Zobrazit grafy</button>
+      <% } %>
+      <% if (cs.indices && cs.indices.length > 0) { %>
+        <button onclick="showIndicesOverlay('<%= cs.name %>')">📈 Zobrazit indexy</button>
       <% } %>
     </div>
   <% }) %>
@@ -186,23 +190,35 @@
     </div>
   </div>
 
+  <div id="indicesOverlay" class="image-overlay" style="display:none;">
+    <span class="image-overlay-close" onclick="hideIndicesOverlay()">&#10006;</span>
+    <div class="method-indicator" id="indicesIndicator"></div>
+    <div class="image-overlay-content">
+      <img id="indicesOverlayImg" src="" alt="" />
+    </div>
+    <div class="nav-buttons">
+      <div class="nav-button" onclick="navigateIndices(-1)">
+        <span class="nav-button-label">Předchozí index</span>
+        &#9664;
+      </div>
+      <div class="nav-button" onclick="navigateIndices(1)">
+        <span class="nav-button-label">Další index</span>
+        &#9654;
+      </div>
+      <div class="nav-button compare-button" onclick="toggleIndicesRGB()">
+        <span class="nav-button-label">Zobrazit RGB</span>
+        &#8644;
+      </div>
+    </div>
+  </div>
+
   <div id="caseStudiesData" style="display: none;"><%= JSON.stringify(typeof allCaseStudies !== 'undefined' ? allCaseStudies : caseStudies) %></div>
 
   <script type="module" src="/js/app.js"></script>
   
-  <footer style="
-    text-align: center;
-    padding: 2rem;
-    margin-top: 3rem;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-  ">
-    <p style="margin: 0; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
-      Bc. Jakub Ešpandr, FlyCamCzech.eu 2025 • v1.0.3
+  <footer>
+    <p>
+      Bc. Jakub Ešpandr, FlyCamCzech.eu 2025 • v1.1.0
     </p>
   </footer>
 </body>
