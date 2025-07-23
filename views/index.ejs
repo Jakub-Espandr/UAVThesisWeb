@@ -39,11 +39,11 @@
   <!-- Prefetch Main Study Images -->
   <link rel="prefetch" href="/data/1)klasifikace_vegetace-Vraclav/uzemi.webp" as="image" type="image/webp">
   <link rel="prefetch" href="/data/2)klasifikace_spaleneho_porostu-Albanie/uzemi.webp" as="image" type="image/webp">
-  <link rel="prefetch" href="/data/3)detekce_poskozeni_obilnin-Loucky/uzemi.webp" as="image" type="image/webp">
-  <link rel="prefetch" href="/data/4)detekce_poskozeni_obilnin-Hradek/uzemi.webp" as="image" type="image/webp">
-  <link rel="prefetch" href="/data/5)detekce_zaplavene_plochy-Cestice/uzemi.webp" as="image" type="image/webp">
-  <link rel="prefetch" href="/data/6)porovnani_modelu-Cestice/uzemi.webp" as="image" type="image/webp">
-  <link rel="prefetch" href="/data/7)detekce_objektu-ovocny_sad-Trpik/uzemi.webp" as="image" type="image/webp">
+  <link rel="prefetch" href="/data/3)klasifikace_poskozeni_obilnin-Loucky/uzemi.webp" as="image" type="image/webp">
+  <link rel="prefetch" href="/data/4)klasifikace_vegetacnich_slozek-Hradek/uzemi.webp" as="image" type="image/webp">
+  <link rel="prefetch" href="/data/5)klasifikace_zaplavene_plochy-Cestice/uzemi.webp" as="image" type="image/webp">
+  <link rel="prefetch" href="/data/6)porovnani_klasifikacnich_modelu-Cestice/uzemi.webp" as="image" type="image/webp">
+  <link rel="prefetch" href="/data/7)detekce_objektu-sad-Trpik/uzemi.webp" as="image" type="image/webp">
   
   <!-- DNS Prefetch for External Resources -->
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -212,13 +212,13 @@
     </div>
   </div>
 
-  <div id="caseStudiesData" style="display: none;"><%= JSON.stringify(typeof allCaseStudies !== 'undefined' ? allCaseStudies : caseStudies) %></div>
+  <div id="caseStudiesData" style="display: none;"><%= JSON.stringify(allCaseStudies || caseStudies) %></div>
 
   <script type="module" src="/js/app.js"></script>
   
   <footer>
     <p>
-      Bc. Jakub Ešpandr, FlyCamCzech.eu 2025 • v1.1.0
+      Bc. Jakub Ešpandr, FlyCamCzech.eu, Born4Flight 2025 • v1.1.1
     </p>
   </footer>
 </body>

@@ -16,11 +16,11 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 const studyTitles = {
   "1)klasifikace_vegetace-Vraclav": "Klasifikace vegetace – Vraclav",
   "2)klasifikace_spaleneho_porostu-Albanie": "Klasifikace spáleného porostu – Albánie",
-  "3)detekce_poskozeni_obilnin-Loucky": "Detekce poškození obilnin – Loučky",
-  "4)detekce_poskozeni_obilnin-Hradek": "Detekce poškození obilnin – Hrádek",
-  "5)detekce_zaplavene_plochy-Cestice": "Detekce zaplavené plochy – Čestice",
-  "6)porovnani_modelu-Cestice": "Porovnání modelů – Čestice",
-  "7)detekce_objektu-ovocny_sad-Trpik": "Detekce objektů – ovocný sad Trpík"
+  "3)klasifikace_poskozeni_obilnin-Loucky": "Klasifikace poškození obilnin – Loučky",
+  "4)klasifikace_vegetacnich_slozek-Hradek": "Klasifikace vegetačních složek – Hrádek",
+  "5)klasifikace_zaplavene_plochy-Cestice": "Klasifikace zaplavené plochy – Čestice",
+  "6)porovnani_klasifikacnich_modelu-Cestice": "Porovnání klasifikačních modelů – Čestice",
+  "7)detekce_objektu-sad-Trpik": "Detekce objektů – sad Trpík"
 };
 
 // Pomocná funkce pro načtení případových studií

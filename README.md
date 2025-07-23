@@ -128,15 +128,15 @@ Každá složka `indices/` obsahuje spektrální indexy (např. NDVI, NDWI) a RG
 
 ## 🎯 Případové studie
 
-| Studie | Oblast zaměření | Popis |
-|--------|----------------|-------|
-| **Studie 1** | Klasifikace vegetace | Komplexní klasifikace vegetace ve Vraclavi |
-| **Studie 2** | Analýza požárů | Mapování spálené vegetace v Albánii |
-| **Studie 3** | Poškození obilnin | Hodnocení škod v zemědělství v Loučkách |
-| **Studie 4** | Poškození obilnin | Hodnocení škod v zemědělství v Hrádku |
-| **Studie 5** | Analýza záplav | Klasifikace zaplavených oblastí v Česticích |
-| **Studie 6** | Porovnání modelů | Srovnávací analýza metod v Česticích |
-| **Studie 7** | Detekce objektů | Analýza ovocného sadu v oblasti Trpík |
+| Studie       | Oblast zaměření      | Popis                                               |
+|--------------|----------------------|-----------------------------------------------------|
+| **Studie 1** | Klasifikace vegetace | Komplexní klasifikace vegetace ve Vraclavi          |
+| **Studie 2** | Klasifikace požárů   | Klasifikace spálené vegetace v Albánii              |
+| **Studie 3** | Klasifikace vegetace | Klasifikace škod v zemědělství v Loučkách           |
+| **Studie 4** | Klasifikace vegetace | Klasifikace škod v zemědělství v Hrádku             |
+| **Studie 5** | Klasifikace záplav   | Klasifikace zaplavených oblastí v Česticích         |
+| **Studie 6** | Porovnání modelů     | Srovnávací analýza klasifikačních metod v Česticích |
+| **Studie 7** | Detekce objektů      | Analýza sadu v oblasti Trpík                        |
 
 Každá studie obsahuje:
 - **Přehledové snímky** (území, výřez oblasti, rozměry)
@@ -162,8 +162,6 @@ See the [LICENSE](https://github.com/Jakub-Espandr/UAVThesisWeb/raw/main/LICENSE
 ---
 
 ---
-
-# Interactive UAV Data Classification Results Visualization
 
 <h1 align="center">Interactive UAV Data Classification Results Visualization</h1>
 <p align="center"><em>(FlyCamCzech | Interaktivní vizualizace UAV dat)</em></p>
@@ -287,15 +285,15 @@ Each `indices/` folder contains spectral indices (e.g. NDVI, NDWI) and an RGB im
 
 ## 🎯 Case Studies
 
-| Study | Focus Area | Description |
-|-------|------------|-------------|
-| **Study 1** | Vegetation Classification | Comprehensive vegetation classification in Vraclav |
-| **Study 2** | Burn Analysis | Burned vegetation mapping in Albania |
-| **Study 3** | Crop Damage | Agricultural damage assessment in Loučky |
-| **Study 4** | Crop Damage | Agricultural damage assessment in Hrádek |
-| **Study 5** | Flood Analysis | Flooded area classification in Čestice |
-| **Study 6** | Model Comparison | Comparative analysis of methods in Čestice |
-| **Study 7** | Object Detection | Fruit orchard analysis in Trpík region |
+| Study       | Focus Area                | Description                                                 |
+|-------------|---------------------------|-------------------------------------------------------------|
+| **Study 1** | Vegetation Classification | Comprehensive vegetation classification in Vraclavi         |
+| **Study 2** | Fire Classification       | Classification of burned vegetation in Albania              |
+| **Study 3** | Vegetation Classification | Classification of agricultural damage in Loučky             |
+| **Study 4** | Vegetation Classification | Classification of agricultural damage in Hrádek             |
+| **Study 5** | Flood Classification      | Classification of flooded areas in Čestice                  |
+| **Study 6** | Model Comparison          | Comparative analysis of classification methods in Čestice   |
+| **Study 7** | Object Detection          | Orchard analysis in the Trpík area                          |
 
 Each study includes:
 - **Overview imagery** (territory, crop area, dimensions)

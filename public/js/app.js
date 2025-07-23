@@ -12,6 +12,10 @@ let isImageLoading = false;
 let lastImageRequestId = 0;
 
 function queueOperation(operation, key) {
+  // Prevent queuing updateImageOverlay if currentStudy is null
+  if (key === 'image-overlay' && typeof currentStudy !== 'undefined' && currentStudy === null) {
+    return;
+  }
   const now = Date.now();
   
   // Remove any existing operation with same key
@@ -126,7 +130,7 @@ export function showImageOverlay(studyName, methodIndex, imageIndex) {
   currentImageIndex = imageIndex;
   isOverviewMode = false;
   isCompareMode = false;
-  updateImageOverlay();
+  queueOperation(() => updateImageOverlay(), 'image-overlay');
   updateNavButtonLabels();
   document.getElementById('imageOverlay').style.display = 'block';
   if (window.innerWidth <= 768) hideBubbles();
@@ -139,7 +143,7 @@ export function toggleOverviewImages(studyName) {
   currentImageIndex = 0;
   isOverviewMode = true;
   isCompareMode = false;
-  updateImageOverlay();
+  queueOperation(() => updateImageOverlay(), 'image-overlay');
   updateNavButtonLabels();
   document.getElementById('imageOverlay').style.display = 'block';
   if (window.innerWidth <= 768) hideBubbles();
@@ -156,7 +160,7 @@ export function hideImageOverlay() {
 export function toggleCompareWithCrop() {
   if (isOverviewMode) return;
   isCompareMode = !isCompareMode;
-  updateImageOverlay();
+  queueOperation(() => updateImageOverlay(), 'image-overlay');
   updateCompareButtonText();
 }
 
@@ -211,8 +215,10 @@ export function updateImageOverlay() {
           isImageLoading = false;
           console.error('Image load timeout:', {newSrc, thisRequestId, lastImageRequestId, isImageLoading});
           updateCompareButtonText();
-          // Pokus o odblokování UI
-          updateImageOverlay();
+          // Only retry if currentStudy is still valid
+          if (currentStudy) {
+            updateImageOverlay();
+          }
         }
       }, 5000); // 5 sekund timeout
 
@@ -282,9 +288,9 @@ export function updateNavButtonLabels() {
           }
         } else if (isOverviewMode) {
           if (button.onclick.toString().includes('navigateImage(-1)')) {
-            label.textContent = 'Předchozí obrázek';
+            label.textContent = 'Předchozí index';
           } else if (button.onclick.toString().includes('navigateImage(1)')) {
-            label.textContent = 'Další obrázek';
+            label.textContent = 'Další index';
           } else if (button.onclick.toString().includes('navigateMethod(-1)')) {
             label.textContent = 'Předchozí metoda';
           } else if (button.onclick.toString().includes('navigateMethod(1)')) {
@@ -292,9 +298,9 @@ export function updateNavButtonLabels() {
           }
         } else {
           if (button.onclick.toString().includes('navigateImage(-1)')) {
-            label.textContent = 'Předchozí obrázek';
+            label.textContent = 'Předchozí index';
           } else if (button.onclick.toString().includes('navigateImage(1)')) {
-            label.textContent = 'Další obrázek';
+            label.textContent = 'Další index';
           } else if (button.onclick.toString().includes('navigateMethod(-1)')) {
             label.textContent = 'Předchozí metoda';
           } else if (button.onclick.toString().includes('navigateMethod(1)')) {
@@ -328,7 +334,7 @@ export function navigateImage(direction) {
   console.log('navigateImage', {currentStudy, currentMethodIndex, currentImageIndex, isImageLoading, direction});
   if (isCompareMode) {
     isCompareMode = false;
-    updateImageOverlay();
+    queueOperation(() => updateImageOverlay(), 'image-overlay');
     updateCompareButtonText();
     return;
   }
@@ -347,7 +353,7 @@ export function navigateImage(direction) {
       currentImageIndex = newIndex;
     }
   }
-  updateImageOverlay();
+  queueOperation(() => updateImageOverlay(), 'image-overlay');
 }
 
 export function navigateMethod(direction) {
@@ -355,7 +361,7 @@ export function navigateMethod(direction) {
   console.log('navigateMethod', {currentStudy, currentMethodIndex, currentImageIndex, isImageLoading, direction});
   if (isCompareMode) {
     isCompareMode = false;
-    updateImageOverlay();
+    queueOperation(() => updateImageOverlay(), 'image-overlay');
     updateCompareButtonText();
     return;
   }
@@ -364,7 +370,7 @@ export function navigateMethod(direction) {
   if (newIndex < 0 || newIndex >= currentStudy.methods.length) newIndex = 0;
   currentMethodIndex = newIndex;
   currentImageIndex = 0;
-  updateImageOverlay();
+  queueOperation(() => updateImageOverlay(), 'image-overlay');
 }
 
 // --- Tabulky a grafy ---
@@ -662,9 +668,6 @@ window.addEventListener('beforeunload', function() {
   imageCache.clear();
   currentOverlayImages = [];
 });
-
-// More frequent cleanup to prevent memory issues
-setInterval(cleanupMemory, 15000);
 
 // Add visibility change handler to pause processing when tab is hidden
 document.addEventListener('visibilitychange', function() {

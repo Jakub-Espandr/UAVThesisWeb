@@ -1,5 +1,15 @@
 # 📝 Changelog
 
+## [1.1.1] - 2025-07-23
+
+### Opraveno
+- **Názvy studií** Aktualizovány názvy případových studií
+- Odstraněno periodické volání `cleanupMemory`, které způsobovalo zamrzání nebo neočekávané chování při přepínání obrázků.
+- Přidána ochrana do fronty operací, která zabrání frontování `updateImageOverlay`, pokud není vybraná žádná studie (`currentStudy` je null).
+- Výrazně zlepšena stabilita a plynulost přepínání obrázků a ovládacích prvků bez zamrzání UI.
+
+---
+
 ## [1.1.0] - 2025-07-08
 
 ### Nové
