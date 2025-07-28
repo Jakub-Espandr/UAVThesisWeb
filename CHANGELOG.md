@@ -1,5 +1,26 @@
 # 📝 Changelog
 
+## [1.1.2] - 2025-07-28
+
+### Aktualizováno
+- tabulky případových studií
+
+### Optimalizováno
+- **Výkonnostní optimalizace:** Přesun JavaScript tagu před uzavírací `</body>` tag pro snížení render-blocking
+- **Lazy loading:** Přidán `loading="lazy"` atribut pro všechny ne-kritické obrázky v loops a overlays
+- **AJAX načítání dat:** Nahrazeno inline JSON data AJAX voláním na nový API endpoint `/api/case-studies`
+- **Redukce velikosti HTML:** Odstraněno velké inline JSON data z HTML template, což výrazně zmenšuje počáteční velikost stránky
+- **Lepší caching:** API response může být cachován odděleně od HTML
+- **Progresivní načítání:** Struktura stránky se načte nejdříve, data až poté
+- **Fallback mechanismus:** Pokud API selže, aplikace se pokusí načíst data z inline zdroje
+
+### Technické vylepšení
+- **Nový API endpoint:** Přidán `/api/case-studies` endpoint pro serving case studies data
+- **Asynchronní načítání:** Data se načítají asynchronně po DOM ready event
+- **Lepší error handling:** Robustní error handling s fallback mechanismem
+
+---
+
 ## [1.1.1] - 2025-07-23
 
 ### Opraveno

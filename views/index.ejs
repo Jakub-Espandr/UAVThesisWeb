@@ -116,7 +116,7 @@
       <h2><%= cs.title %></h2>
       <div class="overview-container" onclick="toggleMainImages('<%= cs.name %>')">
         <% cs.overview.forEach((img, idx) => { %>
-          <img src="/data/<%= cs.name %>/<%= img %>" alt="" class="overview-image <%= idx === 0 ? 'visible' : 'hidden' %>" data-study="<%= cs.name %>" data-index="<%= idx %>" />
+          <img src="/data/<%= cs.name %>/<%= img %>" alt="" class="overview-image <%= idx === 0 ? 'visible' : 'hidden' %>" data-study="<%= cs.name %>" data-index="<%= idx %>" loading="lazy" />
         <% }) %>
       </div>
       <% if (cs.methods.length > 0) { %>
@@ -154,7 +154,7 @@
     <span class="image-overlay-close" onclick="hideImageOverlay()">&#10006;</span>
     <div class="method-indicator" id="methodIndicator"></div>
     <div class="image-overlay-content">
-      <img id="overlayImg" src="" alt="" />
+      <img id="overlayImg" src="" alt="" loading="lazy" />
     </div>
     
     <div class="nav-buttons">
@@ -194,7 +194,7 @@
     <span class="image-overlay-close" onclick="hideIndicesOverlay()">&#10006;</span>
     <div class="method-indicator" id="indicesIndicator"></div>
     <div class="image-overlay-content">
-      <img id="indicesOverlayImg" src="" alt="" />
+      <img id="indicesOverlayImg" src="" alt="" loading="lazy" />
     </div>
     <div class="nav-buttons">
       <div class="nav-button" onclick="navigateIndices(-1)">
@@ -212,13 +212,11 @@
     </div>
   </div>
 
-  <div id="caseStudiesData" style="display: none;"><%= JSON.stringify(allCaseStudies || caseStudies) %></div>
-
   <script type="module" src="/js/app.js"></script>
   
   <footer>
     <p>
-      Bc. Jakub Ešpandr, FlyCamCzech.eu, Born4Flight 2025 • v1.1.1
+      Bc. Jakub Ešpandr, FlyCamCzech.eu, Born4Flight 2025 • v1.1.2
     </p>
   </footer>
 </body>

@@ -166,6 +166,13 @@ app.get('/study/:studyId', (req, res) => {
   }
 });
 
+// API endpoint for case studies data
+app.get('/api/case-studies', (req, res) => {
+  const dataPath = path.join(__dirname, 'public', 'data');
+  const caseStudies = loadCaseStudies(dataPath);
+  res.json(caseStudies);
+});
+
 app.listen(PORT, () => {
   console.log(`UAVThesisWeb běží na http://localhost:${PORT}`);
 }); 

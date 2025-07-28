@@ -101,9 +101,7 @@ export function hideOverlay() {
 }
 
 // === State ===
-const data = JSON.parse(document.getElementById('caseStudiesData').textContent);
-window.data = data;
-console.log('Data loaded, studies count:', data.length);
+let data = [];
 let currentStudy = null;
 let currentMethodIndex = 0;
 let currentImageIndex = 0;
@@ -112,6 +110,34 @@ let currentIndexIndex = 0;
 let isOverviewMode = false;
 let isCompareMode = false;
 let isIndicesMode = false;
+
+// Load data via AJAX
+async function loadCaseStudiesData() {
+  try {
+    const response = await fetch('/api/case-studies');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    data = await response.json();
+    window.data = data;
+    console.log('Data loaded via AJAX, studies count:', data.length);
+  } catch (error) {
+    console.error('Failed to load case studies data:', error);
+    // Fallback: try to load from inline data if available
+    const caseStudiesDataElement = document.getElementById('caseStudiesData');
+    if (caseStudiesDataElement) {
+      try {
+        data = JSON.parse(caseStudiesDataElement.textContent);
+        window.data = data;
+        console.log('Data loaded from fallback, studies count:', data.length);
+      } catch (fallbackError) {
+        console.error('Failed to load data from fallback:', fallbackError);
+        data = [];
+        window.data = data;
+      }
+    }
+  }
+}
 
 // === Indices overlay variables ===
 let indicesCurrentStudy = null;
@@ -648,7 +674,10 @@ export function showBubbles() {
 }
 
 // --- DOMContentLoaded ---
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+  // Load data first
+  await loadCaseStudiesData();
+  
   const path = window.location.pathname;
   const studyLinks = document.querySelectorAll('.study-nav a');
   studyLinks.forEach(link => {
